@@ -14,17 +14,26 @@ public class User {
 
     private String firstName;
     private String lastName;
-    private int gender;
-    private int type;
+    private int gender; //1=male, 2=female
+    private int type; //1=admin, 2=resuer, 3=patient 
     private String address;
     private String phone;
-    private int status;
+    private int status; //1=unknown, 2=admit, 3=selfisolation, 4=recovered, 5=dead
     private String passwd;
     private Date statusDate;
     private String location;
     private Date serviceRequestDate;
     private Date serviceDate;
-    private int severity;
+    private int severity; //1=unknown, 2=low, 3=moderate, 4=severe
+    private String userName;
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Long getUserId() {
         return this.userId;

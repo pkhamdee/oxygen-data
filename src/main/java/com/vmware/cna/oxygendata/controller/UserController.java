@@ -58,6 +58,7 @@ public class UserController {
                     user.setServiceRequestDate(userRequest.getServiceRequestDate());
                     user.setServiceDate(userRequest.getServiceDate());
                     user.setSeverity(userRequest.getSeverity());
+                    user.setUserName(user.getUserName());
 
                     return userRepository.save(user);
 

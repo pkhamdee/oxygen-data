@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id("com.google.cloud.tools.jib") version "3.1.2"
 }
 
 group = 'com.vmware.cna'
@@ -21,8 +22,10 @@ dependencies {
 	implementation 'org.hibernate.validator:hibernate-validator'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.hsqldb:hsqldb'
+	runtimeOnly("com.h2database:h2")
 	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' 
 }
 
 test {

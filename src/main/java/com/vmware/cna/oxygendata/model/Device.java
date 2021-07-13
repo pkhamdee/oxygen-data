@@ -11,9 +11,9 @@ public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long deviceId;
-    private String type;
+    private String type; 
     private String name;
-    private int status;
+    private int status; //1=unknown, 2=inused, 3=returned, 4=available
     private String barcode;
     private Date statusDate;
 

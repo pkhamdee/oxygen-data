@@ -31,3 +31,7 @@ curl -d "{\"firstName\":\"test\",\"lastName\":\"pass\"}" -H 'Content-Type: appli
 
 delete
 curl -X DELETE http://localhost:8080/user/1
+
+5. creat container
+./gradlew jib -Djib.from.image=gcr.io/distroless/java -Djib.to.image=<docker-repository>/oxygen-data 
+
