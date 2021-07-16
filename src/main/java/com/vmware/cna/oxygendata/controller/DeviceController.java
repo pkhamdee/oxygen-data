@@ -28,7 +28,7 @@ public class DeviceController {
 
     @GetMapping("/device/status/{status}")
     public Page <Device> getDeviceByStatus(Pageable pageable, @PathVariable String status){
-        return deviceRepository.getDeviceByStatus(status, pageable);
+        return deviceRepository.findDeviceByStatus(status, pageable);
     }
 
     @GetMapping("/device/status/{status}/total")

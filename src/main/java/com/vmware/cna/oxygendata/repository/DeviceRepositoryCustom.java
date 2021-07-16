@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface DeviceRepositoryCustom {
-    public Page <Device> getDeviceByStatus(String status, Pageable page);
+    public Page <Device> findDeviceByStatus(String status, Pageable page);
     public Integer getTotalDeviceByStatus(String status); 
 }

@@ -16,7 +16,7 @@ public class DeviceRepositoryCustomImpl implements DeviceRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Page <Device> getDeviceByStatus(String status, Pageable page){
+    public Page <Device> findDeviceByStatus(String status, Pageable page){
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Device> query = cb.createQuery(Device.class);

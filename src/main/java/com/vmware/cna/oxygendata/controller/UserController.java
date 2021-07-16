@@ -27,8 +27,29 @@ public class UserController {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }    
 
+    @GetMapping("user/firstname/{firstName}")
+    public Page <User> findUserByFirstName(Pageable pageable, @PathVariable String firstName) {
+
+        return userRepository.findUserByFirstName(firstName, pageable);
+
+    }  
+
+    @GetMapping("user/type/{type}")
+    public Page <User> findUserByType(Pageable pageable, @PathVariable String type) {
+
+        return userRepository.findUserByType(type, pageable);
+
+    } 
+
+    @GetMapping("user/type/{type}/total")
+    public Integer getTotalUserByType(@PathVariable String type) {
+
+        return userRepository.getTotalUserByType(type);
+
+    } 
+
     @GetMapping("/user/username/{userName}")
-    public User getUserByUserName(@PathVariable String userName) {
+    public User findUserByUserName(@PathVariable String userName) {
 
         User user = userRepository.getUserByUserName(userName);
 
@@ -38,7 +59,7 @@ public class UserController {
             throw new ResourceNotFoundException("User not found with userName " + userName);
         }
 
-    }  
+    } 
 
     @PostMapping("/user")
     public User createUser(@Valid @RequestBody User user) {
