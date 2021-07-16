@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.vmware.cna.oxygendata.repository.UserRepository;
 import com.vmware.cna.oxygendata.model.User;
 import com.vmware.cna.oxygendata.exception.*;
-import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
@@ -22,28 +22,33 @@ public class UserController {
         return userRepository.findAll(pageable);
     }
     
-    @GetMapping("/user/{userId}")
-    public User getUserById(@PathVariable Long userId) {
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
+    }    
 
-        Optional <User> userOptional = userRepository.findById(userId);
+    @GetMapping("/user/username/{userName}")
+    public User getUserByUserName(@PathVariable String userName) {
 
-        if (userOptional.isPresent()) {
-            return userOptional.get();
+        User user = userRepository.getUserByUserName(userName);
+
+        if (user != null ){
+            return user;
         } else {
-            return userOptional.orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
+            throw new ResourceNotFoundException("User not found with userName " + userName);
         }
 
-    }    
+    }  
 
     @PostMapping("/user")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
     }
 
-    @PutMapping("/user/{userId}")
-    public User updateUser(@PathVariable Long userId,
+    @PutMapping("/user/{id}")
+    public User updateUser(@PathVariable Long id,
                                    @Valid @RequestBody User userRequest) {
-        return userRepository.findById(userId)
+        return userRepository.findById(id)
                 .map(user -> {
                     user.setFirstName(userRequest.getFirstName());
                     user.setLastName(userRequest.getLastName());
@@ -58,19 +63,19 @@ public class UserController {
                     user.setServiceRequestDate(userRequest.getServiceRequestDate());
                     user.setServiceDate(userRequest.getServiceDate());
                     user.setSeverity(userRequest.getSeverity());
-                    user.setUserName(user.getUserName());
+                    user.setUserName(userRequest.getUserName());
 
                     return userRepository.save(user);
-
-                }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
+                    
+                }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
-        return userRepository.findById(userId)
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        return userRepository.findById(id)
                 .map(user -> {
                     userRepository.delete(user);
                     return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + userId));
+                }).orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
     }
 }

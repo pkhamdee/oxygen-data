@@ -9,20 +9,40 @@ import javax.persistence.*;
 public class Device {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long deviceId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String type; 
+    private String serialNo;
     private String name;
     private int status; //1=unknown, 2=inused, 3=returned, 4=available
     private String barcode;
     private Date statusDate;
 
-    public Long getDeviceId() {
-        return this.deviceId;
+    @OneToOne(targetEntity = User.class, cascade = CascadeType.ALL)
+    private User user;
+
+    public User getUser() {
+        return this.user;
     }
 
-    public void setDeviceId(Long deviceId) {
-        this.deviceId = deviceId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getSerialNo() {
+        return this.serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {

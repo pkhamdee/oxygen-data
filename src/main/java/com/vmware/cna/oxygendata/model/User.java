@@ -1,7 +1,6 @@
 package com.vmware.cna.oxygendata.model;
 
 import java.util.Date;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,8 +8,8 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String firstName;
     private String lastName;
@@ -35,12 +34,12 @@ public class User {
         this.userName = userName;
     }
 
-    public Long getUserId() {
-        return this.userId;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
