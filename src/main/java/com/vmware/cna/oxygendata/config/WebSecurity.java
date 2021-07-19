@@ -13,7 +13,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter
         http
         .cors().and()
         .csrf().disable().authorizeRequests()
-        .antMatchers("/","/users","/users/**","/devices","/devices/**").hasRole("USER")
+        .antMatchers("/*").hasRole("USER")
         .anyRequest().authenticated()
         .and()
         .httpBasic();
