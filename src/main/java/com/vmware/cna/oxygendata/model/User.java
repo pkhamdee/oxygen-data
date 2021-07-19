@@ -2,7 +2,7 @@ package com.vmware.cna.oxygendata.model;
 
 import java.util.Date;
 import javax.persistence.*;
-
+import org.hibernate.annotations.ColumnTransformer;
 @Entity
 @Table(name = "users")
 public class User {
@@ -18,7 +18,11 @@ public class User {
     private String address;
     private String phone;
     private int status; //1=unknown, 2=admit, 3=selfisolation, 4=recovered, 5=dead
+
+    //@ColumnTransformer(forColumn = "passwd", read = "pgp_sym_decrypt(passwd, 'password')", write = "pgp_sym_encrypt(?, 'password')")
+    //@Column(name = "passwd", columnDefinition = "bytea")
     private String passwd;
+    
     private Date statusDate;
     private String location;
     private Date serviceRequestDate;

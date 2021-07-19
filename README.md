@@ -99,7 +99,7 @@ status; //1=unknown, 2=admit, 3=selfisolation, 4=recovered, 5=dead
 severity; //1=unknown, 2=low, 3=moderate, 4=severe
 
 
-To test
+#To test
 docker run --rm \
  -p 5432:5432 \
  -e POSTGRES_DB=oxygendata \
@@ -108,8 +108,21 @@ docker run --rm \
  bitnami/postgresql:11.11.0-debian-10-r59
 
 
-run app from repository
+#run app from repository
 docker run --rm \
  -p 8080:8080 \
  -e spring.datasource.url=jdbc:postgresql://192.168.0.100:5432/oxygendata \
  pkhamdee/oxygen-data
+
+
+#Postgresql, pgcrypto -- It is a crypto utility used by postgres.
+psql -h localhost -d oxygendata -U postgres -W postgres
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+#Generate certificate
+keytool -genkeypair -alias oxygendata -keyalg RSA -keysize 4096 \
+  -validity 3650 -dname "CN=localhost" -keypass xxxx -keystore keystore.p12 \
+  -storeType PKCS12 -storepass xxxx
+
+
+keytool -export -alias xxxx -keystore keystore.p12 -rfc -file oxygendata.cert
